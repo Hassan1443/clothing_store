@@ -11,7 +11,7 @@
 </style>
 
 @section('products')
-<!-- 
+<!--
 
 @if (session('addCrtScs'))
    <div class="alert alert-success" role="alert">
@@ -61,10 +61,10 @@
           {!! Form::Text('name') !!}
           {!! Form::submit("Click Me") !!}
           {!! Form::close() !!} --}}
-          
-          
-          
-          <!-- 
+
+
+
+          <!--
         {{--  <div class="carousel-item active">
                     <img class="d-block w-100" src="{{$product->image_1}}" alt="First slide">
                     </div>
@@ -74,7 +74,7 @@
                     <div class="carousel-item">
                     <img class="d-block w-100" src="{{$product->image_3}}"  alt="Third slide">
                     </div>  --}}
-          
+
           -->
 
   @if(count($products))
@@ -85,7 +85,7 @@
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                   @if(count($product->images))
-                   @foreach($product->images as $image) 
+                   @foreach($product->images as $image)
                     <div class="carousel-item @if($loop->first)
                     active
                     @endif">
@@ -102,10 +102,10 @@
                     <div class="carousel-item">
                     <img class="d-block w-100" src="{{$product->image_3}}"  alt="Third slide">
                     </div>
-         
+
          @endif
-                   
-                   
+
+
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -139,13 +139,13 @@
                         <input type="hidden" value="{{ $product->unit_price }}" name="price">
                         <input type="hidden" value="{{ $product->brand }}" name="brand">
                         <input type="hidden" value="{{ $product->category }}" name="category">
-                        <input type="hidden" value="{{ $product->image_1 }}"  name="image">
+                        <input type="hidden" value="{{ $product->images->first()->path }}"  name="image">
                         <input type="number" style="width:30px; border:grey; text-align:center;" value="1" name="quantity">
                       <!--   <input type="submit" class="btn btn-primary btn-rounded" style="float:right; font-size:12px;" name="add_to_cart" value="Add to Cart"   />
-                                             -->  
-                      <button class="btn btn-primary btn-sm" style="float:right; font-size:12px;">Add To Cart</button> 
+                                             -->
+                      <button class="btn btn-primary btn-sm" style="float:right; font-size:12px;">Add To Cart</button>
                     </form>
-               
+
               </div>
             </div>
           </div>
@@ -170,7 +170,7 @@
     <div class="best-features">
       <div class="container">
         <div class="row">
-        
+
         </div>
       </div>
     </div>

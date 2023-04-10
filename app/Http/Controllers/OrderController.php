@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facade\Redirect;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Product;
 use App\Mail\OrderEmail;
 use PDF;
-use Mail;
+//use Mail;
+use App\Events\OrderMail;
 use Illuminate\Support\Facades\View;
 use Cart;
 
@@ -57,7 +58,7 @@ public function vieworder($id)
          $dts = Str::of($d)->explode('_');
         // var_dump($dts);
          $p = Product::findOrFail($dts[0]);
-         $product_details[$d] = ['id'=>$p->id, 'name'=>$p->product_name, 'image'=>$p->image_1 ,'quantity'=>$dts[1], 'price'=>$dts[2],
+         $product_details[$d] = ['id'=>$p->id, 'name'=>$p->product_name, 'image'=>$p->images->first()->path ,'quantity'=>$dts[1], 'price'=>$dts[2],
          ];
         //echo $p->product_name."<br>";
        }
@@ -86,7 +87,7 @@ public function vieworder($id)
 
      $cart_items = $request->session()->get('4yTlTDKu3oJOfzD_cart_items');
      $collection = collect([]);
-   $product_details = collect([]);
+     $product_details = collect([]);
      $ttl =0;
      $discount =0;
     foreach ($cart_items as $item)
@@ -173,10 +174,14 @@ public function vieworder($id)
    // $pdf1 = PDF::loadHTML($html);
    // $pdf=$pdf1->download('order.pdf');
       //$pdf = PDF::loadView('orderDetails',compact(['order_details', 'product_details']))->setOptions(['defaultFont' => 'sans-serif',])->save(public_path($order_details['orderId'].'.pdf'))->download('order.pdf');
-      $pdf = PDF::loadView('orderDetails',compact(['order_details', 'product_details']))->setOptions(['defaultFont' => 'sans-serif',])->download('order.pdf');
+
+
+    //   $pdf = PDF::loadView('orderDetails',compact(['order_details', 'product_details']))->setOptions(['defaultFont' => 'sans-serif',])->download('order.pdf');
      // dd($pdf);
 
-      Mail::to($request->user())->send(new OrderEmail($order_details, $product_details, $pdf));
+    //   Mail::to($request->user())->send(new OrderEmail($order_details, $product_details, $pdf));
+
+      event(new OrderMail($request->user(),$order_details, $product_details ));
 
     return view('orderDetails', compact(['order_details', 'product_details']))->with('ordRcvd','Order Received....');
 
@@ -219,7 +224,11 @@ public function vieworder($id)
        return view('checkout', compact('cartItems'));
     }
 
-
+//   public function evt()
+//   {
+//     echo "from controller<br>";
+//      event(new OrderMail('test@test.co', '', ''));
+//   }
 
 
 }

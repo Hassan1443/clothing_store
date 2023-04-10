@@ -36,6 +36,7 @@ Route::post('/orderplace',[OrderController::class, 'place_order']);
 Route::get('/checkout',[OrderController::class, 'checkout'])->middleware('auth');
 
 Route::get('/vieworder/{id}',[OrderController::class, 'vieworder']);
+Route::get('/evnt',[OrderController::class, 'evt']);
 
 //soft deletes example
 Route::get('/softdel', function (){
@@ -78,7 +79,10 @@ Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear'
 //     return view('products', compact("products"));
 // })->name("products");
 
-
+// Route::get('imgt', function(){
+//     $d = Product::findOrFail(1);
+//    dd( $d->images->first()->path);
+// });
 
 
 //Admin Routes

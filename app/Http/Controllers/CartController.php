@@ -17,8 +17,8 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-     /* echo "<pre>";
-      var_dump($request);*/
+     //echo "<pre>";
+     // dd($request);
       \Cart::add([
             'id' => $request->id,
             'name' => $request->name,
@@ -38,7 +38,7 @@ class CartController extends Controller
 
     public function updateCart(Request $request)
     {
-      
+
       $quantity = $request->quantity;
       if($request->add)
       {
@@ -49,10 +49,10 @@ class CartController extends Controller
         if($request->quantity > 1)
         {
           $quantity = $quantity - 1;
-        }  
+        }
       }
-      
-      
+
+
         \Cart::update(
             $request->id,
             [
@@ -65,7 +65,7 @@ class CartController extends Controller
 
         session()->flash('updScs', ' Cart is Updated Successfully !');
 
-        return redirect()->route('cart.list'); 
+        return redirect()->route('cart.list');
     }
 
     public function removeCart(Request $request)

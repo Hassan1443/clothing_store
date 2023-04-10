@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('products')
 
-<!-- 
+<!--
 @if (session('addCrtScs'))
    <div class="alert alert-success" role="alert" style="float:right;">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -45,7 +45,7 @@
               </ul>
             </div>
           </div>
-          
+
 
         @if(count($products))
         @foreach ($products as $product)
@@ -55,7 +55,7 @@
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                       @if(count($product->images))
-                   @foreach($product->images as $image) 
+                   @foreach($product->images as $image)
                     <div class="carousel-item @if($loop->first)
                     active
                     @endif">
@@ -72,7 +72,7 @@
                     <div class="carousel-item">
                     <img class="d-block w-100" src="{{$product->image_3}}"  alt="Third slide">
                     </div>
-         
+
          @endif
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -108,24 +108,24 @@
                         <input type="hidden" value="{{ $product->unit_price }}" name="price">
                         <input type="hidden" value="{{ $product->brand }}" name="brand">
                         <input type="hidden" value="{{ $product->category }}" name="category">
-                        <input type="hidden" value="{{ $product->image_1 }}"  name="image">
+                        <input type="hidden" value="{{ $product->images->first()->path }}"  name="image">
                         <input type="number" style="width:30px; border:grey;" value="1" name="quantity">
                       <!--   <input type="submit" class="btn btn-primary btn-rounded" style="float:right; font-size:12px;" name="add_to_cart" value="Add to Cart"   />
-                                             -->  
-                         <button class="btn btn-primary btn-sm" style="float:right; font-size:12px;">Add To Cart</button> 
+                                             -->
+                         <button class="btn btn-primary btn-sm" style="float:right; font-size:12px;">Add To Cart</button>
                     </form>
-                
+
               </div>
             </div>
           </div>
    @endforeach
     @else
     <h2>No Products Found</h2>
-            
+
     @endif
 
 
-      
+
 
 
 
@@ -142,7 +142,7 @@
             </ul>
           </div> -->
         </div>
-        <div class="d-flex justify-content-center" > 
+        <div class="d-flex justify-content-center" >
          {{ $products->onEachSide(2)->links() }}</div>
         <!-- <center style="align:center;"> {{ $products->links("pagination::bootstrap-4") }}</center> -->
 
